@@ -33,8 +33,19 @@ pipeline {
         stage('send email') {
             steps {
                 mail to: "$email",
-                    subject: "Jenkins Build Notification",
-                    body: "The build has been completed successfully."
+                    subject: "Build #${BUILD_NUMBER} - Deployment Successful",
+                    body: """
+                    Build Status: SUCCESS
+                    
+                    Docker Container: $container_name
+                    Image: $image_name
+                    Port: $port
+                    
+                    Application URL: http://13.204.46.89:3000
+                    
+                    Jenkins Build: ${BUILD_URL}
+                    """,
+                    mimeType: 'text/plain'
             }
         }
     }
