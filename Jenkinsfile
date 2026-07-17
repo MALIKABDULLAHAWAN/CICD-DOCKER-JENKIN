@@ -31,6 +31,7 @@ pipeline {
             }
         }
         stage('send email') {
+            when { expression { false } }
             steps {
                 mail to: "$email",
                     subject: "Build #${BUILD_NUMBER} - Deployment Successful",
